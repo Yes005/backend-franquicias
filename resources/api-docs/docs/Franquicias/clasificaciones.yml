@@ -1,0 +1,418 @@
+/api/v1/clasificacion/obtener-puntaje/{id}:
+  get:
+    tags:
+      - Clasificacion
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: id de franquicia para obtener los datos
+    responses:
+      "200":
+        description: Puntajes de franquicia segun clasificación
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  clasificaciones:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nombre:
+                        type: string
+                      puntaje_maximo:
+                        type: integer
+                      puntaje:
+                        type: integer
+                  franquicia_id:
+                    type: integer
+                  entidad:
+                    type: string
+                  has_score:
+                    type: boolean
+                    default: false
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/clasificacion/subir-puntaje:
+  post:
+    tags:
+      - Clasificacion
+    security:
+      - bearerAuth: []
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              franquicia_id:
+                type: integer
+              clasificaciones:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    clasificacion_id:
+                      type: integer
+                    puntaje:
+                      type: integer
+    responses:
+      "201":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type:
+
+/api/v1/clasificacion/guardar-observacion:
+  post:
+    description: Permite guardar una observación de una franquicia
+    tags:
+      - Clasificacion
+    security:
+      - bearerAuth: []
+    requestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              franquicia_id:
+                type: integer
+                description: ID de la franquicia
+                example: 1
+              comentario:
+                type: string
+                description: Comentario sobre la observación
+                example: "Observación de la franquicia"
+              archivo:
+                type: string
+                format: binary
+                description: Archivo a subir, solo en formato png,jpeg,jpg y pdf, tamaño máximo 5MB
+            required:
+              - franquicia_id
+              - comentario
+    responses:
+      '201':
+        description: Observación guardada exitosamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Observación guardada exitosamente
+      '404':
+        description: Archivo no encontrado
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: array
+                items:
+                  type: string
+            examples:
+              example1:
+                value:
+                  message: 
+                   - "El archivo Qa-observacion_3.14(2024-06-25 12:00:00).mp4 debe ser un archivo de tipo: pdf, jpg, jpeg, png"
+              example2:
+                value:
+                  message:
+                    - "El archivo archivo.pdf no debe superar los 5MB"
+              example3:
+                value:
+                  message:
+                    - "El archivo imagen.png no debe superar los 5MB"
+              example4:
+                value:
+                  message:
+                    - "El comentario no debe superar los 2000 caracteres"
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/clasificacion/ver-observaciones/{id}:
+  get:
+    tags:
+      - Clasificacion
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: id de franquicia para obtener las observaciones de la franquicia
+    responses:
+      "200":
+        description: Observaciones de franquicia
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  franquicia_id:
+                    type: integer
+                  comentario:
+                    type: string
+                  archivo:
+                    type: string
+            required:
+              - id
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/clasificacion/ver-archivo-observacion/{id}:
+  get:
+    tags:
+      - Clasificacion
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: id de observación para obtener el archivo
+    responses:
+      "200":
+        description: Archivo de observación
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                archivo:
+                  type: string
+            required:
+              -id
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Error al obtener la observación
+
+/api/v1/clasificacion/eliminar-observacion/{id}:
+  delete:
+    tags:
+      - Clasificacion
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: id de observación para eliminar
+    responses:
+      "200":
+        description: Observación eliminada
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Observación eliminada exitosamente
+            required:
+              -id
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/clasificacion/obtener-promedio-entidad/{id}:
+  get:
+    tags:
+      - Clasificacion
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: id de franquicia para obtener los datos
+    responses:
+      "200":
+        description: Promedio de puntajes de clasificacion de la entidad de todas las franquicias según clasificación
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  clasificaciones:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nombre:
+                        type: string
+                      puntaje_maximo:
+                        type: integer
+                      puntaje:
+                        type: integer
+                  entidad:
+                    type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/clasificacion/obtener-promedio-entidades:
+  get:
+    tags:
+      - Clasificacion
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: per_page
+        description: Cantidad de resultados por página
+        default: 10
+      - in: query
+        name: page
+        description: Número de página
+        default: 1
+      - in: query
+        name: tipo_entidad
+        description: Tipo de entidad (Fundación/Instituciones == 1 u Oficiales == 2)
+      - in: query
+        name: buscar
+        description: Nombre de entidad a buscar
+    responses:
+      "200":
+        description: Promedio de puntajes de clasificacion de todas las franquicias por entidad
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entidades:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      entidad:
+                        type: string
+                      cantidad_franquicias:
+                        type: integer
+                      clasificaciones:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            nombre:
+                              type: string
+                            promedio_puntaje:
+                              type: integer
+                      calificacion:
+                        type: number
+                        format: double
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/catalogos/clasificaciones/listar-clasificaciones:
+  get:
+    tags:
+      - Clasificacion
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: per_page
+        description: Cantidad de resultados por página
+        default: 10
+      - in: query
+        name: page
+        description: Número de página
+        default: 1
+      - in: query
+        name: nombre
+        description: Nombre de clasificación a buscar
+    responses:
+      "200":
+        description: Listado de clasificaciones
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nombre:
+                    type: string
+                  puntaje_maximo:
+                    type: integer
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+

@@ -1,0 +1,13 @@
+openapi: 3.0.0
+info:
+  title: API Franquicias Presidenciales
+  description: Gestion de catalogos, login, administracion, etc.
+  version: 1.0.0
+  x-logo:
+    url: https://via.placeholder.com/190x90.png?text=L5-Swagger
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

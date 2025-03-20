@@ -1,0 +1,183 @@
+/api/v1/reportes/franquicias/{id}:
+  get:
+    description: "Permite previsualizar documento de franquicia"
+    tags:
+      - Reportes
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: "ID de franquicia"
+    responses:
+      "200":
+        content:
+          schema:
+            type: string
+            format: binary
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/reportes:
+  get:
+    description: "Listar reportes"
+    tags:
+      - Reportes
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: "Número de página"
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: "Número de elementos por página"
+      - name: fecha_inicio
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+          example: "2024-07-10"
+        description: "Fecha de inicio de franquicias (formato: YYYY-MM-DD)"
+      - name: fecha_fin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+          example: "2024-07-10"
+        description: "Fecha de fin de franquicias (formato: YYYY-MM-DD)"
+      - name: mes
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+          example: "2024-07-01"
+        description: "Mes de franquicias recibe dia inicial (formato: YYYY-MM-DD)"
+      - name: dia
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+          example: "2024-07-10"
+        description: "dia para generar reporte diario (formato: YYYY-MM-DD)"
+
+    responses:
+      "200":
+        description: "Listado de reportes mensuales y personalizados"
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  codigo_solicitud:
+                    type: string
+                  nombre_solicitante:
+                    type: string
+                  contenido:
+                    type: string
+                  fecha_ingreso:
+                    type: string
+                  fecha_despacho:
+                    type: string
+
+      "200 diario":
+        description: "Listado de reportes diarios"
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  codigo_solicitud:
+                    type: string
+                  cantidad_bultos:
+                    type: string
+                  contenido:
+                    type: string
+                  documentos_transporte:
+                    type: array
+                    items: []
+
+      "Error 500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/reportes/franquicias:
+  get:
+    description: endpoint para obtener el reporte de franquicias, ya sea diario, mensual o personalizado.
+    tags:
+      - Reportes
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: fecha_inicio
+        description: (para fechas personalizadas) la fecha de inicio del rango personalizado para el reporte (formato "año/mes/dia")
+        schema:
+          type: string
+          example: "2024/01/01"
+        required: false
+      - in: query
+        name: fecha_fin
+        description: (para fechas personalizadas) la fecha de fin del rango personalizado para el reporte (formato "año/mes/dia")
+        required: false
+        schema:
+          type: string
+          example: "2024/01/01"
+      - in: query
+        name: mes
+        description: para realizar un reporte mensual (formato "año/mes/dia")
+        required: false
+        schema:
+          type: string
+          example: "2024/01/01"
+      - in: query
+        name: dia
+        description: realizar un reporte diario (formato "año/mes/dia")
+        required: false
+        schema:
+          type: string
+          example: "2024/01/01"
+    responses:
+      "200":
+        description: archivo de reportes segun lo seleccionado
+        content:
+          application/pdf:
+            schema:
+              type: string
+              format: binary
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string

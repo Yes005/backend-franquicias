@@ -1,0 +1,1241 @@
+/api/v1/franquicias/:
+  get:
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: per_page
+        description: Cantidad de resultados por página
+        default: 10
+      - in: query
+        name: page
+        description: Número de página
+        default: 1
+      - in: query
+        name: guia_aerea
+        description: Número de guia aérea
+        default: 1
+      - in: query
+        name: carta_porte
+        description: Número de carta porte
+        default: 1
+      - in: query
+        name: conocimiento_embarque
+        description: Número de conocimiento embarque
+        default: 1
+      - in: query
+        name: mercaderia_no
+        description: Número de mercaderia
+        default: 1
+      - in: query
+        name: dmti
+        description: DMTI
+        default: 1
+      - in: query
+        name: estado
+        description: ID del estado
+      - in: query
+        name: entidad
+        description: ID de la entidad
+      - in: query
+        name: factura
+        description: ID de la factura
+      - in: query
+        name: aduana
+        description: ID de la aduana
+      - in: query
+        name: buscar
+        description: Texto a buscar
+      - in: query
+        name: fecha_inicio
+        description: Fecha de inicio formato (YYYY-MM-DD)
+      - in: query
+        name: fecha_fin
+        description: Fecha de fin formato (YYYY-MM-DD)
+    responses:
+      "200":
+        description: Lista de franquicias
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  codigo_provisional:
+                    type: string
+                  codigo_franquicia:
+                    type: string
+                  fecha:
+                    type: string
+                    format: date
+                  fecha_despacho:
+                    type: string
+                    format: date
+                  no_guia_aerea:
+                    type: string
+                  conoc_de_embarque_no:
+                    type: string
+                  inf_de_mercaderias_rec_no:
+                    type: string
+                  carta_de_porte_no:
+                    type: string
+                  nota_de_pedido_no:
+                    type: string
+                  bultos:
+                    type: integer
+                  comentario:
+                    type: string
+                  nota:
+                    type: string
+                  observacion:
+                    type: string
+                  estado:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nombre:
+                        type: string
+                      creador:
+                        type: string
+                      editor:
+                        type: string
+                      fecha_creacion:
+                        type: string
+                        format: date-time
+                      fecha_edicion:
+                        type: string
+                        format: date-time
+                        activo: boolean
+                  aduana:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nombre:
+                        type: string
+                      creador:
+                        type: string
+                      editor:
+                        type: string
+                      fecha_creacion:
+                        type: string
+                        format: date-time
+                      fecha_edicion:
+                        type: string
+                        format: date-time
+                        activo: boolean
+                  institucion:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nombre:
+                        type: string
+                      creador:
+                        type: string
+                      editor:
+                        type: string
+                      fecha_creacion:
+                        type: string
+                        format: date-time
+                      fecha_edicion:
+                        type: string
+                        format: date-time
+                        activo: boolean
+                  oficial:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nombre:
+                        type: string
+                      creador:
+                        type: string
+                      editor:
+                        type: string
+                      fecha_creacion:
+                        type: string
+                        format: date-time
+                      fecha_edicion:
+                        type: string
+                        format: date-time
+                        activo: boolean
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/ver-detalle/{id}:
+  get:
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Lista de firmantes
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                codigo_provisional:
+                  type: string
+                tipo:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nombre:
+                      type: string
+                    activo:
+                      type: boolean
+                    created_at:
+                      type: string
+                      format: date-time
+                no_orden:
+                  type: string
+                fecha:
+                  type: string
+                  format: date
+                fecha_despacho:
+                  type: string
+                  format: date
+                no_guia_aerea:
+                  type: string
+                conoc_de_embarque_no:
+                  type: string
+                inf_de_mercaderias_rec_no:
+                  type: string
+                carta_de_porte_no:
+                  type: string
+                nota_de_pedido_no:
+                  type: string
+                bultos:
+                  type: integer
+                comentario:
+                  type: string
+                nota:
+                  type: string
+                observacion:
+                  type: string
+                estado:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nombre:
+                      type: string
+                    activo:
+                      type: boolean
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+                comentario_correccion:
+                  type: string
+                no_factura:
+                  type: integer
+                comentario_anulacion:
+                  type: string
+                destino:
+                  type: string
+                itinerario:
+                  type: string
+                fecha_entrega:
+                  type: string
+                  format: date
+                codigo_franquicia:
+                  type: string
+                aduana:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nombre:
+                      type: string
+                    creador:
+                      type: string
+                    editor:
+                      type: string
+                    fecha_creacion:
+                      type: string
+                      format: date-time
+                    fecha_edicion:
+                      type: string
+                      format: date-time
+                    activo:
+                      type: boolean
+                clase:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nombre:
+                      type: string
+                    creador:
+                      type: string
+                    editor:
+                      type: string
+                    fecha_creacion:
+                      type: string
+                      format: date-time
+                    fecha_edicion:
+                      type: string
+                      format: date-time
+                    activo:
+                      type: boolean
+                corrector:
+                  type: string
+                factura:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nombre:
+                      type: string
+                    creador:
+                      type: string
+                    editor:
+                      type: string
+                    fecha_creacion:
+                      type: string
+                      format: date-time
+                    fecha_edicion:
+                      type: string
+                      format: date-time
+                    activo:
+                      type: boolean
+                    mostrar_no_factura:
+                      type: boolean
+                institucion:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nombre:
+                      type: string
+                    creador:
+                      type: string
+                    editor:
+                      type: string
+                    fecha_creacion:
+                      type: string
+                      format: date-time
+                    fecha_edicion:
+                      type: string
+                      format: date-time
+                    activo:
+                      type: boolean
+                    representacion_legal:
+                      type: string
+                    fecha_inicio_junta_directiva:
+                      type: string
+                      format: date
+                    fecha_fin_junta_directiva:
+                      type: string
+                      format: date
+                oficial:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nombre:
+                      type: string
+                    creador:
+                      type: string
+                    editor:
+                      type: string
+                    fecha_creacion:
+                      type: string
+                      format: date-time
+                    fecha_edicion:
+                      type: string
+                      format: date-time
+                    activo:
+                      type: boolean
+                hasDocumentos:
+                  type: boolean
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/borrador:
+  post:
+    description: "Permite al auxiliar crear un borrador de franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tipo:
+                type: integer
+              institucion_id:
+                type: integer
+              oficial_id:
+                type: integer
+              aduana_id:
+                type: integer
+              no_guia_aerea:
+                type: string
+              conoc_de_embarque_no:
+                type: string
+              inf_de_mercaderias_rec_no:
+                type: string
+              carta_de_porte_no:
+                type: string
+              nota_de_pedido_no:
+                type: string
+              fecha:
+                type: string
+                format: date
+              itinerario:
+                type: string
+              factura_comercial_id:
+                type: integer
+              bultos:
+                type: integer
+              clase_id:
+                type: integer
+              comentario:
+                type: string
+              nota:
+                type: string
+              observacion:
+                type: string
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/borrador-update/{id}:
+  put:
+    description: "Permite al auxliar actualizar un borrador de franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tipo:
+                type: integer
+              institucion_id:
+                type: integer
+              oficial_id:
+                type: integer
+              aduana_id:
+                type: integer
+              no_guia_aerea:
+                type: string
+              conoc_de_embarque_no:
+                type: string
+              inf_de_mercaderias_rec_no:
+                type: string
+              carta_de_porte_no:
+                type: string
+              nota_de_pedido_no:
+                type: string
+              fecha:
+                type: string
+                format: date
+              itinerario:
+                type: string
+              factura_comercial_id:
+                type: integer
+              bultos:
+                type: integer
+              clase_id:
+                type: integer
+              comentario:
+                type: string
+              nota:
+                type: string
+              observacion:
+                type: string
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/crear/{id}:
+  put:
+    description: "Permite al auxliar enviar a revisión un borrador de franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tipo:
+                type: integer
+              institucion_id:
+                type: integer
+              oficial_id:
+                type: integer
+              aduana_id:
+                type: integer
+              no_guia_aerea:
+                type: string
+              conoc_de_embarque_no:
+                type: string
+              inf_de_mercaderias_rec_no:
+                type: string
+              carta_de_porte_no:
+                type: string
+              nota_de_pedido_no:
+                type: string
+              fecha:
+                type: string
+                format: date
+              itinerario:
+                type: string
+              factura_comercial_id:
+                type: integer
+              bultos:
+                type: integer
+              clase_id:
+                type: integer
+              comentario:
+                type: string
+              nota:
+                type: string
+              observacion:
+                type: string
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/observar/{id}:
+  patch:
+    description: "Permite al jefe observar una franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              comentario_observacion:
+                type: string
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/crear:
+  post:
+    description: "Permite al auxiliar crear una nueva franquicia y enviarla a revisión"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tipo:
+                type: integer
+              institucion_id:
+                type: integer
+              oficial_id:
+                type: integer
+              aduana_id:
+                type: integer
+              no_guia_aerea:
+                type: string
+              conoc_de_embarque_no:
+                type: string
+              inf_de_mercaderias_rec_no:
+                type: string
+              carta_de_porte_no:
+                type: string
+              nota_de_pedido_no:
+                type: string
+              fecha:
+                type: string
+                format: date
+              itinerario:
+                type: string
+              factura_comercial_id:
+                type: integer
+              bultos:
+                type: integer
+              clase_id:
+                type: integer
+              comentario:
+                type: string
+              nota:
+                type: string
+              observacion:
+                type: string
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/solventar/{id}:
+  put:
+    description: "Permite al auxliar solventar observaciones de una franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tipo:
+                type: integer
+              institucion_id:
+                type: integer
+              oficial_id:
+                type: integer
+              aduana_id:
+                type: integer
+              no_guia_aerea:
+                type: string
+              conoc_de_embarque_no:
+                type: string
+              inf_de_mercaderias_rec_no:
+                type: string
+              carta_de_porte_no:
+                type: string
+              nota_de_pedido_no:
+                type: string
+              fecha:
+                type: string
+                format: date
+              itinerario:
+                type: string
+              factura_comercial_id:
+                type: integer
+              bultos:
+                type: integer
+              clase_id:
+                type: integer
+              comentario:
+                type: string
+              nota:
+                type: string
+              observacion:
+                type: string
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/validar-unicidad:
+  get:
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: guia_aerea
+        description: Número de guia aérea
+        default: 1
+      - in: query
+        name: carta_porte
+        description: Número de carta porte
+        default: 1
+      - in: query
+        name: conocimiento_embarque
+        description: Número de conocimiento embarque
+        default: 1
+      - in: query
+        name: mercaderia_no
+        description: Número de mercaderia
+        default: 1
+      - in: query
+        name: dmti
+        description: DMTI
+        default: 1
+      - in: query
+        name: franquicia_id
+        description: ID franquicia que se desea excluir del resultado
+        default: 1
+    responses:
+      "200":
+        description: Lista de franquicias
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  codigo_provisional:
+                    type: string
+                  codigo_franquicia:
+                    type: string
+                  fecha:
+                    type: string
+                    format: date
+                  fecha_despacho:
+                    type: string
+                    format: date
+                  no_guia_aerea:
+                    type: string
+                  conoc_de_embarque_no:
+                    type: string
+                  inf_de_mercaderias_rec_no:
+                    type: string
+                  carta_de_porte_no:
+                    type: string
+                  nota_de_pedido_no:
+                    type: string
+                  bultos:
+                    type: integer
+                  comentario:
+                    type: string
+                  nota:
+                    type: string
+                  observacion:
+                    type: string
+                  estado:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nombre:
+                        type: string
+                      creador:
+                        type: string
+                      editor:
+                        type: string
+                      fecha_creacion:
+                        type: string
+                        format: date-time
+                      fecha_edicion:
+                        type: string
+                        format: date-time
+                        activo: boolean
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/anular/{id}:
+  patch:
+    description: "Permite al jefe anular una franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              comentario_anulacion:
+                type: string
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/aprobar/{id}:
+  put:
+    description: "Permite al jefe aprobar una franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/subir-archivo:
+  post:
+    description: "Permite al auxiliar subir un archivo a una franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    requestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              archivo:
+                type: string
+                format: binary
+                description: "Archivo a subir, sólo en formato png, jpeg, jpg y pdf, máximo 5MB"
+              franquicia_id:
+                type: integer
+                description: "ID de la franquicia a la que se le subirá el archivo"
+                example: 1
+            required:
+              - archivo
+              - franquicia_id
+    responses:
+      "200":
+        description: "Archivo subido correctamente"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Archivo subido correctamente"
+      "422":
+        description: "Error de validación"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: array
+                items:
+                  type: string
+            examples:
+              example1:
+                value:
+                  message:
+                    - "El archivo QA-Observacion_3.15(2024-06-25 14_03 GMT-6).mp4 debe ser un archivo de tipo: pdf, jpg, jpeg, png"
+              example2:
+                value:
+                  message:
+                    - "El archivo archivo.pdf no debe superar los 5MB"
+              example3:
+                value:
+                  message:
+                    - "El archivo imagen.png no debe superar los 5MB"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/ver-archivos-franquicia/{id}:
+  get:
+    description: "Obtiene la lista de archivos de una franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: "ID de la franquicia"
+    responses:
+      "200":
+        description: "Lista de archivos por franquicia"
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 26
+                  extension:
+                    type: string
+                    example: "jpg"
+                  filename:
+                    type: string
+                    example: "franquicia-PROV-2021-134_18.jpg"
+                  fecha_creacion:
+                    type: string
+                    example: "07-06-2024 03:19 pm"
+                  content_file:
+                    type: base64
+                    example: "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"
+      "400":
+        description: "Error en la petición"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "No se encontró la franquicia"
+      "404":
+        description: "No se encontraron archivos"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "No se encontró el archivo: docs_franquicia\/PROV-2024-183_3028763.jpg, No se encontró el contenido cifrado del documento en: docs_franquicia\/PROV-2024-183_3028763.jpg"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/ver-archivo/{id}:
+  get:
+    description: "Obtiene el contenido de un archivo de una franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: "ID del archivo"
+    responses:
+      "200":
+        description: "Contenido del archivo obtenido correctamente"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content_file:
+                  type: base64
+                  example: "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAgAElEQVR4nOy9WdBt23WQ940x51p777873b1Xt9WVZKtxE2TUGAMyEEMFg0mqUkURkExSIRVMnlI8+CV5oHhJquCFPBAsk1QqZWRBKiFJRbFFAAOyZAs3si0jyeruvZJud+7p/3bvtdYcIw9z7fb///Ofc885tzl7flXr/Gc3q9l7rzHmmKObwj1ycHAAgHh+HAgAuDnuRkJI7iTyG4JGDo+O2BiN2NkeyHdSE2Ko07gde0yOHbb8k0/9ov7nn/irT9ej0fsasfcm5b3AsyL6JOgjwEVgaJYG7incy/WLyL3sXlhTFu6bBExUwxi4DlwDXhWV70bja9raN7um+cZwe/jiUdeZ14H9dkKsKrF2Eh6vNhKHE2+7CSJCwlERXJ3gULeOJsFESURMFBcwMUyMC+e2+wuy1/c57vWLWFUAwlweDc8XbIb1Z6rigMFAAuD7ndsNm2BBSE33zp3Rxp/wSfrjW4P4ob1bRz+0tT3aTAqLH23SglnCzREV3NM9XX9RAIXXw+p9I6IA1JXOnlMgGrSNHZjYHxx1zZc86q+2br+6MRy9AMZmEraCaufI/u7NVFf17PhBHB83iCu44qIkUaxXAGBcOHfudQs/3AcFcLifFYD3R3LpFYDmJ6z/YiSjuFrbNm5ANazfM3b7qc7tPzo4Ovyxra2trVoUA5pxS9s0HupqKuECCK4iKjL9Ae5VARQKr4dTFIA3TePAdEMh1FUtJnPlMGmaA63iFydH48/U7v/PIFbfjjESxGWkQVtza8dHntqW6PPzeC9LcwVAVgD38jnuaW+WFYChWJA82qsgIghBREVVxAD/xje+PXj8HY//2cHm6D87Ojz6D7a2NrcqhRtHYyZtk1yDBw1KUCGZDOvB7Fzujvvy+YsCKLwZ3M5y9IWbVEIgRvXDw7HXdW3BTdq2DZujEalLNE1zsLUx/Ofj8fh/vfzaa7/81ONPTEIUGYRKa7DdW42rA9L1I33ephb1hXMX7u1zvN4dp4bOwf64n5NAUkiiTKzDBDTG8Gu/9gX/0z/+p+y1K69tb29v/zTozwAfnB4nIB0gJmjCJYmS3GcWRHBQn3/hIhH3uclTFEDhrYCILAk+ZJnIA2OWF3EIBuq4gonjIh6n8uPCvzP4B7t7N//RYDTafXpjW92RvWukegDJ93EmiDoqAZHAzuaKBXCXEq1nv+VkFmcd0/m/CYxTy3A40uvjg0CI6aN/7MfqDv76+UcvfWk0HP2PJvwhE8yEzgQ3IQLhTi99UfgLhbcKq8J/BgIEF2JSPCldEqwTfijW9d/fuHDxdzzEv/HyUaqPWtIXf/urYbSNumQ/gJnRti2TydEJF9Jvd8ipCkBXttXnWdBs0Gsw4ObBXhiCD3Y208324Cebrvu1jvRJJXzfK9de6xy8H9Sjg3hvOXi/v/r8HNPRfxlb2QqFtybq/ajf/1VnZi0b0Ak0QWUSNLZBNan6zcODZMnfPRiM/sFgEP7t/qT5cx/+2PtSC7572IRBvU0VNrLPwY5L+pK8ysJ2Cqe+pCsvpoXnIX8IBA73xphAG5AkqFSDdG2891QS/s7OYPvjXXuEinRd2+m50ZbuN5PZlwPLcyn3qWPP8X4KcNL7FrlLzVsovKFM5+qrA5n0yqCLgjOXNWsT7m5VFW0jxmjWMT44+seVDn5W4cVLm3XoHGsmR962Yy6du5h39LnMOnP5nD1xipicqQAOdw9YmKMgllVAGyAJjJsJG9ubigTG3cQM/csu/D0T3uFuiSSIeZh+ESLLYfuwcgk+83pa//7lx6tGS1EAhbczdpvRWR0TcVcIuL4G/E0VfrGqomKJrhmbOkRk6lsgeJb1NmRH4fntPk/gFDE50wfgCxpsqrVmJrvAhZ1zYZw62z3c2+gsfRL4NPBYMLpgqDr3lKhTKDzMqJ++AQoaDE0mPGrCpzrskweT8cbY3eJoMzAYkGQhDN8fdzrlOMsfcFvHmwKHewczJ58LjKPOxmIXQuMpjVP3/YPB4B/vxOGHd7um63dVd8Nt2Tu6agGsmvZnWwCc8v5C4eFjQT4MsI06xsOu+1Jj3V8Oqt8ULFaJbthBZfP8gNg7yzd3trPknCImt7UAjLnpr57j/CnP9/HsvU8Sw5/Y2dz5fBXjh68e7rfuFtxNi7e+ULivKBD2x+M2xPChUT38VVf9Uy50SYltgCbkMDwArohnuc8pSicf9PThs3/lYO9oZk4khf1KSUrUZB3wVxL+P7sw8hyQDypxdoiT5uerI/Zx597MzbjyerEACg8fUxk5nlkoS6/PMcg++WDCBJX/AviUCbFKdJutURmoZx/A5s7tawXiic8CU9ekCZjOFQA5Zt+58F8CP+/5ilL/fHHKFQoPniCQglNh/KOkbCXlk0BoLQfspolHZ3G6AgDwPsNPsnlhQlSnw/jrnfBJE5JYTmq4989UKBTugqCOISSMn+uf++RRRWwCXZ2yT+AsdJY5cJIl3Qt/UkhKSEIHfAL4JL0tYrLgR/DXnVhYKBTukAVRVXFEwYLxc+J8wqBLSpgm1p2VXyvXbEywrC1yLFFno35SuHz1Ck89/mR4+ebVtLmz/SclyWdBB21OQ5onHc2ykooSKBQeFLLiC9PsKzCyqI9F+HOH+/v/5skLF8PLr15O5zc30aAMhyPG46OFxLq+Sne3HSNO7zjI5btJYBKyAtiRSm+miSX394P+CuiTQEpuS2Z/UQCFwoPnFAUAkMQJQXgZ+ImAfP1CXem1/X1rjsZcuHiB3d1dNgaj2b5mCfH98fwJhXFQxhEOciMO6Y4Offfa9e0nnnzyV3D9iLskILgtX8jc+VcUQKHwoLiNAkCcFFWCu//Wa6+++hOXzl/cO7+zJYd7+x5idvepZ8E3m2YaLbYv8IWGA0DCdTgc8szTz/7dSuuPjMfj1s2WhD/X6BfPf6HwFiCMj5q2rqqPPPPMM393MBjw2V/+/7Sua9qmYTw+ouu6mfADyHjczNJ8AVpVmgDjSOjwJMk+TuJTQOfuQUSkxN4LhTeHYxbAQgBOHEKuLTJ1gsDH2/HRpx89vx32x21KXXe8KGmvyQpgGjIwlDYgTcAn2LOYfMHNngLM3RV0JbW3KINC4Y3idgoAch8ddUwdBV5S8T9OSt/Z3BjK/t6hx975N5VhPWkwV8/BA3H+e+ApYJrfXygU3kKYzLcF1HLI/qm6rv67cdsySSZxUDOvys0t+3R6kG7a008IltXMT4H+FTdL7h6yxig6oFB4q5J9d0bKW0hY6sw+PhgN//yNW7dsUMfgsqw09PBwwqTtOGgadBhk72icPvdrv14NNfytKuT0P3GVqenvJtlZON0KhcIbhqNL29Jr7uBKciHhknBah0Fd/a3f+b3fra7cupW2NobSiSMh5DUItqoBzd4hYs7/+0ufDbGu+PCHP/zXHD7aHI276ehfPP2FwlufhPcDtZPcw1Ez6RL86Ec++tG/Vlc1n/ln/zyIw+H+PpvVANl79SYaAhuPbMm1a7f8yvWb2088+8xvTFL7AUKwNtmyn2Bl1JfjTfsKhcIbxLR1HixUFpoj80ogw1yHMfzBy9/53kefeuSx/Yvnt2R888g9GSqujI8afuWz/ybEUPPu9zz7iY1aPxBC7ECLjV8ovM3I8/vZgjwagnajqvrAe97z7p+OIfCv/sXnwtHREe6O3LoxYed8LYdH+Bd/499WH/zIh75owodcMAOdHshPXX5oVUeURiCFwhuF63IY0GcZfn1noGwhWMRVnd/+yu99+Y/+0Ad+oL2wvSHXb+673qqMI9CbNuH9H/7gX0iahZ/i8i8UHgrEUUctKR9+/4c/+Bdu2IR90JuhQw82B1wFvyoN44F+YhKgE2zazxzmDQcLhcLbA++X5tNkiBmtuI1FmKh+4qo0XAM/2B6gf3Dte/p8e8s2N7bfm5Sf7IU9pL4kuFAovL0xAVyDiWLInz2/s/P9L46/ay9c/rrq9sXzWlc1bWr+/PlQb8akHag0EcYRklq/FjknbmWlnkLhzUMsLW2a0/kQc9wTSTtcOtxNNFk3hK3Y7f/U08PE91101XMy7EYotctfUJunAS92BC4UCm9PFtOE1VVqhJHGn9KuIzRNkq8dHTIM8V1DiV8W821P7iZIUlsS/tMaDJY0gELhrcziilrqbdtIPfA9l6M/FKO8oMOjjlGSH69Ftj2lZJIX7IQ76ypaKBTeyiwvFxpjSFXc2G4nw4+ldgPdqTYYED8WHUTCMZGXWa+APMc/YfmiQqHwtsDA1aNAFTY+Zl2NfvaXPxuC8qHWYDwel9h/ofAQUw2iNglE/UOf/PmfD/LtG7vv3NnZ/qqZb7q5J3PJJYOrHv38WEsFYKHwtiWE6GatpNQebIyGP6Cj7a33JWUzubssdBgs5n2h8DBwLDQv4/HYYxU2W2veH5Ol92mImKXkIhGdriUgBBZDCH3O8UpYsJQJFwpvZZYt9hCE4XAj1THGNqX3KvDespBvobCGuL5Xwd6FGCYmx+f9xdtfKDyETO34dynw+MqThULh4UYA3P2JCDyy+ORZrEYBUl6NuFAovA1omhZAxpMWEXlEgYvFkVcorB/uflGBYf+4TAEKhfVgKutDBQZuxQIoFNaQOopJEFXUHRyc2yuDMucvFB4aogLuJRGgUFhHXClz/0JhXck9v0sUoFBYT0ppX6GwxhQFUCisMUUBFAprTFEAhcIaUxRAobDGFAVQKKwxRQEUCmtMUQCFwhpTFEChsMYUBVAorDFFARQKa0xRAIXCGlMUQKGwxhQFUCisMUUBFAprTFEAhcIaUxRAobDGFAVQKKwxRQEUCmtMUQCFwhpTFEChsMYUBVAorDFFARQKa0xRAIXCGlMUQKGwxhQFUCisMUUBFAprTFEAhcIaUxRAobDGFAVQKKwxRQEUCmtMUQCFwhpTFEChsMYUBVAorDFFARQKa0x8sy/g7clZetPekKsoFO6VtVMAJseeWXm8Itx+krDPn3P3E15fOIlMjz/9eyfHXzxU2f/+7r/ysoSlx3rSz/kQs3YKAEBEUFG6oIwFEvm2ej2/vXNMo1BmVm99nPwrbTjEZJjbKcr84WbtFIA64I6T2A/KF65dY7+ugd46ODai3H7EOfWmOTbynDKCnXb8sv8D2n++x1bT8LFLj3AuJQROVOUPO2unABZpBP7PX/8trg2HC8+eZWLeoQKY3nB3bcJOH5f9p/vb4nFOeP+y2X7W+edcGo/50f/wJ489v06snQIQEUKMpK5j3EJbbzEebCEy1f86e5+7g+uKkM9fz+QbS/Sk8cNO+P+bPQK+/fZ3uc3+rssj9x1YALO3yv7au2vXTgEsYkCnkUbrXqDnN1dWAPnWcpsqgOXX5w9s+fHSGVb/fxsBcF22Q89wYJ0oPG+r/U85xtK+YHLK/q4s6d0zz798nFbj6/L7PEystQIAEAKuYX4j9DegIHjvKnJZuE2mry9ZAIocm0Hm5+c34SmOQV94TRbf1++/epzbTUnelvuvMPsa58fxU747Aeyuzq+oCMl6q20lArCOrL0CuFd8esOe4kG6rWPpRGE4yWq4D5wqeFNBuV/nv5f9j1+j3+YLdAE5NoTfwTn778KkZGwUBdAzHdGn0/3Fef+iee+9x8l7m+G46b98S81Gr34EFDtL6Bcv6qR56+32VY4fa1m4jwvMbc6/dGK9g/OvcML1Hz//yRaFr1hOJ00D1MFIp59/kemFi5Km9t5Z1sgaUBTAm81p89s7ZDmxaXU0X01sOUFBnHX+M4TkWGLVyvEeZGKNnWgBnIXCTGkUBbD2CkBUTnHg3RnHMwuX0bsVuLXj9haMneATuBdEFLcuH/EefveHhaICC28hinJ8o1l7C+DeOeGmXRzlV03UE8Jca8GpU4l7G4NWLbB1y+W/V4oFcL+R00zYN4IH/3Pe/Zz7fnK/leaaKeETKBbAGfgJI/WiUB+P/x/fL/8vp6zOZrKuSx71mWDdtWVwdiLN/Ub8eDRg5mSfXtX089yRp33+XYjfPnlo/r6V89wpYutnfd2GogDukjsd0ReFxAXwvG8A1JR5NPD0m9Flfj71HEIUlsNxwVbeNz33iSHBk05ygoD2AuICpjY/v88FLslyEk6Yneokge+Tp04U1pXaimnar9ixV7PXvxit95OiAFZZuPnzf+ZJI3B8xJHV0WThdev/ddHZsdT02E08G/VOmD6M+19o2CqVK8EUF6Xrr6eynCs/rvK+VTdXPiaKCUu59LNruQNMjCZkYayT9UI+3X+edqsOof9s09c7UVznn+fYiD39XvX0EV8cYv/ddAKKzvIBtNegfiw6cEq0oIz6J1IUwANCHEKf5jsdodUXMgM9p6fKLBX4hKSf6fvI71GfJr8wO5ALdLq4dx6XbSkv/u6nFeKWC208X4gaC+efHtvQ/j3qlp/zfD0uhqHH7IHp9wBT4beZsl1O9tH8/c2mRv2zxcl3XykK4AxWM9BWpwBhxQcwH+l0ZjZPhRTP93MuOzKmNUYnphP3gjVI+W+V+tx37fL7BZJmS8D664qehUoMWrVZquzrMZvVFU1Q9aO+LmYwqiFuVGazPIep0Ce1nGIr/TG6uj+/MbOJ+uvPnyO/381BwlJPBg/gNlVCy1mMKUwV1Bm1FseYX0exCtZcAdxNLvjiyHUW05ESwMxomgYTJajSOqgoJoqrTO1nAGQ23GXrQF37ezTf3GlBQSxNUSSbyuJG5w0W5wOn+t3/xIufc3p+ocJRnBZ1Q2kQDLV8fAvT/LrVb3QlNfoUH4q7000aUKWqaroukdxpzdC+W8+g6qs2xeaWUOGeWGsFMGXxpjxNxqdCcWycWR1dfT4iuzsiSqgGjAQwxzQ/r9Ji5rRupNSLTjLMDFWlqgYIAUtCZ0CIhGpAkPyTBVOqmeltmBimHa12TNIYUsPWcBObdIjNf2b3s8UmTa8f0CoyHG6QuoC6Mp4cEEPDpL0GntA0RKQCz/6GhLB5foe264j1kK6bWyJ5ajHPwBPRfD3uWEqoJaIINBMGIddbpOAYuWNPGzuiKGIym2LZHY/8hZMoCuAB4WpY07Bd17z/qae4YIHx7g1aa5CQBcB683cRs0TqEm2bmJhxY++Qrqpp1DlKCdMK1To7vzx73wXLJjFGVcNWHDB5+QaPa8UjWxcIpmhQRKTvhyionl4KO72mJijfu7nL1d2bhNEFTIzhIPDo9gZPn9tAmiPaMcRUIx5xIocuvLS7xy2FJo0RjayqTXNHJcyUUUiJgbWcG43YViemloEYIo6FQFfVHFSRKweHHHYdUGXLxhXHb1sxWLg9RQE8CCSb4xvBGBxe5c88/V5+CBjxBJAthMS8dGfx/p2+1npi3AvTSwcTvnz5Fb55dZej4Q6p2sR0BL2TTZhbMd34gOroiD9+6Ul+6kd+mCcrqBfOs/j3LPaA32qf4J984cvc0paDrqPdu8qffO+/x396aYsxHZtEAlABDXAN+Jff3eez3/4G3WCAW2BeOzmvnsy+FUOtpU4NW23Dn/7B7+Mjj9RcBHZSVm5NgBsKLwGfee47/LvXrtNK6Hs7Lk+LCndPUQAPgqmHH+NcrVwAhgbnJi2K0WlH1wfOswe9d3q5k1IihECMEQ817zx/jsl5+PBTj/Hb12/wha+/wMtHexwNwXRAR57/m2SBCYcT3rWxxV/66A/zLiCOndoaZmFATysFSrp83QvYYMiOKTbeI1URqQKbmyOuvvwy7aX38UgzJrYTokNINRPZoN4J/MD5Lf7Z0Zg4HJFOmavncmsHc6IZ22nCD16seQdwaQI7zZjKjDYGquGAqwGuvPgiVRySdGqlLFb2FV4Pa68AFpNoYO7FPzWqfGzOv+w1mCfgCJKErjWOOtiIUAlARFGELLQKSyZACNXssCm1JAm4Ko+g/PsXL/Ajf/QCv/C5L/GV5ibt1nmsVVoUdScmZ6sL/Pkf+QhPArLboVWk0wGqDtIRPDsbVfrG2D6N3es87De9lkrxFlDJNfQqmAovX77C4Q++j2fqLUhD1A0LSlBBDR7fhIvbl3iFAdAtfnvzfgvT71orpJ3wxGjI4wpDQBWsUjo3xl3DZhjw7Rv7vHLrgOEjm6gbHYrr9Hh3k/A0z1Uo/QBKLcADYi5Yi9lzU++1WEQtoqZon9xz2lYlGHbGua7hQjK+D/gzP/B+Ho2OTA4QN5zsDBOHS/UmT4yEDWCoJ//AvtQ663SMbGJ3CqjkzxQijTvPv3KDFnCP4HGm+GIytgI8trWNt7cZnfuU3CpWpHbCMxcvcAkYWD+uK7Qhn/cIeG3/gG64SZpGUEo3n/tCUQAPBF3ZTicL+clbPdugTjBIRkjwwUc3+SPPvosLXY7Fz3BlUFVsSTYqBoOISkMlLTUt0foYPREjC654zHH6WccfnW1GFv5O4ny0jBUTDXzrtctMyEK6aEElMzaBd17cJhzcQlPC3WfblKml0XZHCBPe/84nGZE/Z7Cc+deqQhyw5/DStVvo5gZN0FkjkFCSgu6ZtZ8C3A16psm4KPB6polporSqfZDrlCNan2cvhophbWJzM/CxZx7lhau3+NpuS6t5VHd3NkcbdEALaMV8iuyRToT9KHS9gjjLf3YD2FewejgT4OSGVTXXOuM14NGQ05FNsjVjITEAntgaUB3u4qNhFuSTPpsbMSYeO7/Jk9sDxuPEDgHc6YJjItRVxX4HV3cP0NEmCcNzgLRPrLISBbgHigI4hdkt2wvx9PH9LEZJAs9du0ZayM+PVUVd12yMBmwpbDQg3bSYxhggdE3gsRretTniW9cPGddDTAKdONIlNgBLvex7jUgeUb/68k2+kcbcGtQkVsNzq+3EAkcx8pWrV0j1kNQamJPUaWPFC3t7PLdnnNtSutTn5ouhIedGvvdSzZObke9aC4vddxe68AhGlSY8slVzHqhpwXI6lJvQqeIBnvveHjd2G3ywDe59N2ByNuF9+zXWk6IA3kSSKt+7cY1G5z/DeDxmNBqxs7PDxcGI79/apIZ5LjwdMTkjap4+t0144TVgbgGoG1NxS70pLZrn1AdVzS/9zm9xfTCkk7ovFlotxpk7yCwE2jpCVRNiyN73BKaBWxJ4/sZ1fnj7kVz63B8nqJIwLqC874lHeenKLtm1dxx1o7IJj58/l6/AE+7ZZMnWRuAQ+N71fTSOIAUinhOOeudtyea9N9ZGAUznqdJ73udVcvfG7brknrqgxcI7ZbSJh/wziAqj7W3cnavjI/Zu7fP05iYaAQkonsOL1lFR8/iFHZSU02Kn1YEScskxef7eaIOHiKAchoSdG5EGWxhDDMW1WajIm36oPJUxFO8zD73POvRkWCXsm/PC9et073wEE8vfaz8cS+o4F2re/+SjfO6168A84SlM1ZPnYp+RJd7z2GN0JJIabe8oDZ4jKQcOz125hsqA2AlRlFaNpoJOjbjoZC3cNWujAN6KuOQ036afI1trtG2De5otTXZ594inz42oJGDezfZVjCqlWSrwtA9AxGcWgNFh0pEcRGoaTTSqjKOCKam3DHLi0kKfgVkBkfYmtkKftSciuAkp1hy60AESlTTucALalw17cLZqIbgRxLE+jIhZjhpILpbabp2nh9uINwQkVxEmo5Js/l8TuBEjLlV2HJb5/n3loY0CTCvSptvtmBbv5OwyXdrEWdpcbGmbV5flzWS+3dl1al9ko7iEnO9f1WisIFa8ePM6Y7JgChVJIi6gXeLcsGJnexPoE4pSR5C5AsCc2AnS9SXCtDQYneWioWQNRptz7S2hyRHP/Qq0TzOOKW/i2SyPqiQDjwMuX7vJq7cOEKlJOOYdbrlC0nzMU+cucGlrg2BGCCysveC0fYeU9z36DI8Do4lQe8DdaaxDzNmo4DdenvBdnMkw0gYYq9OJoMmJnZfR/x55aBXAWwHXqZK4W/rRV5QkSks/dXHtl7NS1BL1gtk9bTc2VQAC4InghqQJiuG0pGl4jem+2ocDlWnZry4ogelkAHJHIp0qRwm0Gnlt9zDnA6ggMp2L5ESniPP4uR0q7xBxEvNQoHqOHrzr3KNsOwxMCAgqTgwRkTz//86NG+zHPjFIUt+JqA8Dlvn/PbM2CsBlvt2v+T+cZGncnQWwlInXbyIREUUWogPBczsxkYBqjssHQHTq+JMssDpfLTdPDxrgiIqEWjcz+3MeQE3sNtA0JDHEqQkWc/GQTz+TLSXciM9vmiTKC9d2uQmEQU2MoT9vVhQRePdjjzJoWyJO2477XgBG5R3DruNdO5tsdVCLoppLpkf1ANWagzFcuXINc8/KpaT+3HfWRgGcxv3ucvugugD3U/U8P5+a0v1ryWxBWUyFJL9aixJNCcj8sy4onTySTkf9/lyr38kpyixJ5JX9CXvTa1yoMAymDIB3nttmo51QO5g5loyAo13DMHVsdPM2ZpAVnMRIp8KtBjoMnS7VXrjvrI0CWJzH68L/V19b3Y5n9d15lt/donJ8lSJ3wT174R3mTjCxnMwzDf8FxaYZd/S9CCxQ+SbnR48SiHSNIhOgNVLXkVKDSkNzdIPNkAjegXR0C41AdSFLEJWc8isBVOhC4GojfONKR8PUT5grIdWV2uHdtfDEoCZ0LYNYkTA0QGyP+MFnn+YdF3Oyk9LN+ieMHY4G8M3r1zlMRqgqOrd8flm25gr3RokCvM3II+FCs81+dBQJx5a6EofKA83E8aHw6OYG7xkMuBgriLmKsBLH68BIlde6Q67HyDjEnBa0kPR0krAliVyeHPHSXkP7aKRpW6oYkX4R0rqDrQqe2d7hm3u30FFNm3KYbyMI77iwBQImqZ8yZWU3cbgu8NzeTVIUVBVLpervQVAUwFuQbAVMrYGTb/ypsAcR3Oa99kRyJl3o90/W0lmDeeQ9Fwb81z/+ERL5hw/9XyXX8//OLfj7X/5NDqshanVuLHobkigHRJ6/co3xuza4NBjQWZudkQaVw6bD9/bU14MAAB8uSURBVD36KP/ytSsw2EAk4J7YHkSeenybDhhXXW6H5kJK0EV4yeErVy/TVTuIKtZ1t72WwuujKIC3OSIy6yUooisjde6lZ90Y8cg2sDVpczcd6RA3zDrqMMwdOK+9RmVzQXO129YzmEC9vcWVvQNeun7E+e1AjHmuEoio5xDiY+d38GaSQ3euhNRyvnaeAYQ8+k8Le0LKU5gr5jy3d4vBoxfK6P8AeWgVwKoj641dout+MPO1Lz0r4tALffYBCG6Om5+4ynGSRIiKpYaBR4KlPqmgZRKNZqAc0jCQEaNLI/zFxbwG+nZDunD+xVz+HIc8SBNuNBMGg/OMOUIWLrnr4B3bFe+4dJGbR0cMRzWbnfOBc1s8DkRyhEA95mKilFt+fe3FF2lHQ0IAc07N+S95APfG2jgBHy6WfQAwN/9XcUDCQkJT32dAXPuOvn19PYs5C4ottPc+XXkarbW0tLxw4yrXgcSiFSJ4cmrgvU8+wVYQBlXAx4e877FHEbrcWnwxtIhjwEtXr6MbWyQvEYAHSVEAbzInCe3xN53+0nQEdM/NMUV0ZhmISt9+POS23hbotKZRpWMINmTYDNkcD/pVh2piqgl2dinzlC41tAjPXblGzvrPymaarKPJGAA/8MQTDFOHpwnDUc0zFy6gR5N5CLJfVSgNRlweO9dvHVDXJxcRFe4fD+0U4O2CqGD3MMJpCEA7GyVzvXyvEExw0RwqBCaupNhPKvqRPUl+rAKHIVcJ4nFWMHUntAo3OuGWwyMSEUtYl3sERYfO4GKAJwaR7x7u8cSlR9gEYgdR4yy5qEWhhhdevomFgBDxEut7oKyNAphVqvWbPqDCkrudkwZVPJ2807yTznRE9YWknPw3hnnyTdd1LP6kLuAa8DAgpYYDh+sO436XscCNBIcJJkcTrnXGYaxxasSMIIajS9OA1c8Xo4JF9qTm9797kw8+e56QIt45GqHWQNfC0wN478421154kT/yYz/Go0CkQjzOqv8mESbAt2/cYm/SIZu5o3DhwbE2CuAkFueeD4LFZKNT3yOKL1T5Lab/noYvpOdKL5Her56zmAjk7uABkZyZfyDGp37l17kVRyScicJuMDpxfHzIbutw6WmMSKCDM5SkqxFUMK/ZT8oL13c5fPY8Qwfpq/dCyIk+W8B7dnb46sEh378pHHawiRAd6JOzHPiOwUu7BzAYzfwBhQfHWiuAO+GkYp77GVE4yweQF/Por2VpqrDgCFQ5VXGIZvvfNHCkwisBrg4CbcgJN4lcxFNtBJRI4xXQry0muaPvYr+B1WtzddyVfYt879oe+xN4h0TCAKzLzUjUnA2E95w7x489+QzPAO0ktzKr+6Ye0zqi71yb8L2bu4QLO1gq9b8PmqIA7pL7Hk7sG2DMHuazTM+2MMJP5/WOqRPdWZX53BHohGvu/3YIh0HYi7ndVtOnOtd1TSWCuOQsnAWdN13c9LSpjfctwT1GJg3c6GAygk1A+rZkQRJOZNs6fvIjHyJ2fTYxkByCQOdOE+By23ATiKEidWm5nVjhvlMUwCr9iL+0+Canz4HvtSdVrktYGM0Xjqnk/Hfrr2eW6++OeU7/ubm7i3mkmlYDIn3VoOQSXc1xdMwRcnOOIAlNECTSaqRr4aDPJlRNOE6eZPis0chJTCMP7k4l4FH56o1rPLV5CSy3JXdPIEZoWh7f3gBN2eQP4J1hnpuUuCb2NfDlqy/RnNvAerNHobgBHiBFAbwFWHJ0C8w9E4Yi2SPv2Qk48+67k8htvGfY3AKYrXws4N6hBMSmi35G1AO45qW1FpprevbFLyi225s8Uy+9upEEnt+9yXUusUk275N7ViCW25BK3/MPV1ychNF4wurAZYcrkwldFUlmqIQ7DkcWXh/l2z2DeW3/8Y4/d1zzfxo+7dFfn7JFgjhRj1seSeJsFV8N2dEXRBCd5wGo5hZbbk6VcoluKzUTHdLKEKPuQ3ANInlTOoQuF/QwbTc235avv28iMl0ZWJXnX73MDcAUOlvsnMSytSTWL/XdMfGOLgRevnnA4UFD1CqvAGzl9nzQrLUFMBsl7/C9DyLtdHVpMl0ccPvwWPCUvWli9JX9NNJbAORVf7Odv3LN0NfoZovByOW0SXMZsfTNOejNfWbLmi1y+hxcnD6bEEDpBF68scuNFlLVdwmaXtZJzlTNS6M3nnsPvnrQIqGGNpcyT89RUgEeHEXFwrEa85NuuFnrrZXtWA9Bm29nKgyBo/EhEhwJjlaglUM0TDqwhvc/+zSVdSRaXPM8X6TiXDXgRpu4fusmetrCG9D3z3ZaSUgNIUIVOxh0SG1IpWjMPQg1BggRWdhcoE2Jo2YyW8twtrkiFhGrcxhPlHjuIs+9em3mt8h+CJ8tTX7sGlXZ2NzguRa++uJrmNdEi7OuQvlrslO3wr2x1hbAg+f2TUPEnbo9wmxePXN4cMjm1ojz5y9waWOb2rvcIrsXIHUFFQ6By9du9S4/w6w9uRagdxYixlCd0a1rbE8mvUUwv75piNEXzBELgW44ItYjtupNJpPJStGR5spCgD6rkMEmz12+TvPMJTqD6owhpq4jVyxxrQu8dNDiVZ0PpCdZI4X7TVEAbyIDMz74xOP9Kj05Zh9UiVUgxvzjVGmCSDbfUcG7nDGz7/Cdl17Oy4IHxTBEcu88IU8lXALJcqZNUOccHX/xve/nMA5w7/pU4NjP7rMC2Nvbm13fXl3ztdb55tWbJEa0nVGFgEyVx2xaNPWJZJ/Gizf2uHwA5/Us2z1PTyqt+d71CTcb0CoyC4YW0/+BUxTAA2ZxGuBov7Z9h4U8dj86ygUvOSNwIf6PoG5oEsyh6+fQySNdgMsOz+8dkUJF8tx3X/r1+ZQ+3bkXsHxEGAA//t5nZ4+nvYXS7KygvGO2/w3gi8CL//o6XdsgMeJYXspsFr7Mwp9XB4JJ0zFx4Vuv7fGud29DWxE6I/aWwLSD0bQC8ebuPr4z5KXr12A0JHno6xQ6XIqZ/6BZewWw6oSbOq1WFsqa34YrYanjMfKF2nmbzpGzkLVSgbSY5u68uFL3mXY5ItAX9LjjHWhyqokSRBkNDIuBVCtHwP/xe9/l9w8c39yAhRLcgQxyEp9BMz4i1IP+8ymKQNsv4TUrI5a+0ejxTzAJsN3CxrhhT42uhpaIuhM8EdxztqBkh566Eb0jIfza9y7zA+/e5lGBLSqwRFUFzA1kuuoQ1KOKG8Ar16/S6Whh1aasWG6Xh1C4d4oT8AFyolNx5nWfv2e15n6+yo8QNXf2lSRMknIL+Nz1jl//zkv4I48xiRUdkvPm+zk7wOFRR1UN+jBfNvLFnGgd0Toqz7X4wy4xTImhGcMEGx0Mp5vnv4OFhUGmDVXnjkDrt3ztVaywWPGKwW++BoMIKSqNGzHqfBEW8rqFXin/7rVb3GwOCcP5eJTDimX0f9AUBfAAMTHa0NH2kbTgTp1gkHJTDsjLg7eaFwCxPqYeTBkkRZpE1+4zSUegI6gCv3K54X//8leoLj1K6z7b31Aazav5Pg+wGWkm9P35LG/eEd2IPn+cw4xGtDx6Tx8Ht6WbI7f3UuqUry12kZDy+n6hbzQiroTBkEkVuBmM33zh2zyXYBISVNCkjiD0iicrv68k59de/i6HIdAthDJnzUjeuJ9rLSkK4C7QM7PSjr8+XYijBZIIidgn8dQkKhKRRiKNRhqtmGhFozUTrZkMRwwuXOLw3DleMPjl5/f5p1/6XS5LYNcntNaCSr/ijtDFwMve8k9/99t8J0HYqTmMcaYkWo1Mgi49boLSrTyevS651r8L+RxRlWC54edyiDMrCxewIKRBYLxZ8fWb1/hHn/siL3pgXA247i0HAQ5i5FYF1xX+r9/+Xf7g1i4+2qDpumVLqGQBPnDW3gdwGrNbr78Jp4/lrpSA0nVOLdABqYaOgBNo+3eEfjNyrk8LtAEOgT1XbgJfefEKv//NV3nlsKHZOUeqDEKDioFVOW6OYyrsDWs+f/VFDn9/j7/4h3+EZ4MyDMOZo2/aBXjxKqc9ElY/QQPcEuhG0JEYRiWkvJJh0gQoacmFCA0tXXBSTMRL23z9yPhffvfr/MQHnuEHNzeYAFHhK/vwr776En9w5BxW25hW/UqlvbVhOvMB+MLipYX7S1EAD5Akimxs8luv3OBaVTO+8hoWcsKQkTvvhIWQV1LoLLE/OeLm3i43miO+d7hLUw3p4ha+s4NoxMhluovbNGOu3tqhq5yv3LrCjS98nh88/xhbEhgMBgTNZnpeR2Caw98n2/SPFwXtoFKep2MSclwi5wrMVUWn86jFFDGHYHR9leBke5s/uHmTF//1F/mR9zzFO85f4qVXbvH8tYZbFplsbOWU5qREUaadDoL1vRHuNd26cFvWRgFMTUvps9nu1/qAx48xv2FbVXY18Jkv/z7nK6WdHOCjLPgxDcEjKWi/2o5hKeGpF4A6oFUFjzyGiUKK0IEmofIheE0XOhpNqMKwzeb5rVdusLVd0442+fb+AZevH2CTRNM0mBmV5jX8VgVeT1AAFoxm2NGqohqx5LMiItM+jChTPwNLVXvTb2F37waXNra5ac6/vWYcPP8cw+EmGms6B/VIlXqHoCz3X5hWAtodNEkpvD7WRgG8GbjArUnLYOcCh8HZjUq1uQkoVVcDShfCTIlon+mvGF2/AlCyFjFHcDQIkvox2DX37ltqEwbDakjTdLREmrjJhAodbaGbSghKQ6B1jqUPn2QBQMf+/qtUwwoh4C65uk+ms34AI1cozEduUKr+mgYbmxxMGkbnL3Ft/4DBpceZAJoS0ln/afNxYKXs2qfJRlaSgh4QD60CuJsbZilZ54w4/90u9z0YjPLS2G5sDC5gqTe7TQAneLeUc+DknAERmcXvXXMSkeGYJqapOwIMPNv+imD9mgG4EmTIKEyP2ucAJCd7I3KKsMlql6HV78WoBzvQt+syzxV/9K26vb+IacegWd9FhypNU4wTIQrN+IhhpeCptxwMKujcZishzT4UuQFKJi92LmSFeuz3KM0C7omHVgG8tejNfOZr2k9vXPFT6u1mgtULUv/0NDY+y8b3qVDY4rMLSk2X3r84ZVHPXYRPI+uo6S0yHafzqOyLI/Xqp/UTwnf9YqazvgP9/qkvC576ImYWAIvCrneteAt3xtoogNmNL/dv/g8nWRrLN+r9nr2edNnel/W6Tctv7/+ouOqFn62sPHumN+XvUlDnC5ss515OfQuFB8vaf8cPVZrpQzZKlnn/g2dtLIDFEUu9b7G18hpwwuB5lo68vdCd1vV3+vzqHHz2/Blnvd0xl88pJ77nrOs79fU3TWGe9juUhUPvhbW3AAqFdWZtLIBCAcDN5n6HsuhoUQCgKyW+d3tTnGFErXobVw9/7CY8Zcpw6vHv+J2ncJYReNb3sbL/HbRBu+05F3+LO/Jp3IkR+3D5Ru4nD60CWA1Pne5Q0qXW2sfjyqfdPPO89WUFsnxDroavjsvHchBwlodwzMt+MqfL28p1T69j5Ys4fvzVDgjT+Hy/XsLq5zt2AdXy/qtC7CwpxeXzrwqzzD/f9PzHagJWP8GxDg5Lb8ltzJfboK0zD60CuBuWQlyzm+IEwV+8mZfi7LcZYXxFEN6wopbVPP3VFiec8vg+73/i51/8vnRln1UBvg/XP+2QQk4p0mPHXF/WXgHkBhULDToWR4WVlXjxxRvmjJtndd/ZiHjGDXy/FMS9nv9h3d/zUmQAwmTtveBrrQDUofKG2prZc75qARy7kU480sL/F03P0/Y9S+jv9bY869rvUOk8tPtnKuvWfunRtVEAM5+Aey6wATYGIIe3qKydvc+OTQFu7wM47kQ8QRkcmwefJfD3SQG87vOvHOdh279HxkfFAnizL+DNpHb4j//YR9iPuTPvUnHMnYw+vtBaw/X460UBvCX3nyZ+bbdj6jX3A8qL42atvgJDERVUlC7AWHIu2bQSb62+jDXGyb/5hkNMHebWNz1dL5tgLS0ANyeRkASj1ddOCw2dFpN+nfPPOW+UE/Auz78m+4vIWicTr50FUCgU5qyXvVMoFJYoCqBQWGOKAigU1piiAAqFNaYogEJhjSkKoFBYY4oCKBTWmKIACoU1piiAQmGNKQqgUFhjigIoFNaYogAKhTWmKIBCYY0pCqBQWGOKAigU1piiAAqFNaYogEJhjSkKoFBYY4oCKBTWmKIACoU1piiAQmGNKQqgUFhjigIoFNaYogAKhTWmKIBCYY0pCqBQWGOKAigU1piiAAqFNaYogEJhjSkKoFBYY4oCKBTWmKIACoU1piiAQmGNKQqgUFhjigIoFNaYogAKhTWmKIBCYY1RwN/siygUCm8KroC82VdRKBTeFESB9GZfRaFQeFPoFJi82VdRKBTeFBoFxv2D4gsoFNaDqawfKXAdwL3If6GwZlzXWFVXh4MKigVQKDz0xKrC3X0wqBCRawq8CuDFBCgU1oWprL8SgRcWn5T+JS/BwULhIcIWH0wVwAvq8M3ps7JgA0ixBwqFhwBjUfjdlgT7m9pa9w2AjdEgAIg5Yp6dgla0QKHw9sVAOtAGJCsBs5ZkXRAgRP1GrDR+vTMOvO02xdzdXUTm9r94mQ4UCm9/DAREgw8Glewd7O2LyDf0X/zfn3lZm+5rtUYAV1VEhEDeoEwHCoW3Hwoo4hGxyLTuz918ECrObW5/7Rd+4RdelutjQ4P8XIz8zI1bB12s67h4GOtH/2IFFApvJ7LA58HbcDEQw6zrzg23437T/Nx43PxXeuQdE/zzR60TqkqU5RphFQEVRE7eCoXCWw9xy8LvixJtpIQ2gGr9+UG1he5p4ij457sgexpjYCEhyIp8FwoPB9kJ6BJUFfaOjvhC04LeCB27kl5olS9qpQCm5NFd+xFeiw+gUHgbYihdjgRgmGCbw00OjS92gReGO4heGx/EQ2tw+Ezv8yviXig8LEifByBGwr0FWuEzHfB7X78a1JvWogY6+KXW2XeRaLjP8gDMMc95ASdthULhzURP2TKzabyrByS2pP2E/VIYgGlj+vT2JXuCoR4d7H0rpe6fSQxY3yTEpPgBCoWHAXFNldZE/LPp4PBbFwP67BOXTDf2W86DbGmNJv9UZwkTNGkO/U23QqHw1kd8nrznMp3PK4BqcmJjv7gtgU2Q6mAf3bLs+Jvc3OPm1eufSW332xqjmmBl9C8UHgqsDlHTePLbt165/JndV15FG7OLMaIDE5pbje9fvRFHEtro8j9VQQh93KBMAwqFtw/TkX9qCQigjlUaqET/YSWhbfcPY3PrwEdJkRtXDqmqyOa5Sl66suv746PtC+949Dfa1H0AFaOsHVAovIU5Lp7T7D8A92RirsMYvnbt1cs/ujkY7T/5+CNyeP3Are3Q0daQw8khu3sTf+m734kR30tHR39vZ1QT3EwtIdhs49hWKBTePJblUTz/VQdSh4JtbQw5aiZ/r1Pbf+HFF+KNW3u+3x4RtofI7t5kFs6r6loOj478W88/V/2hP/zDnx836Uc7SynhYVYTcOwCioFQKLxVmBbuaR6cUxU01FX1G7/35d/92Pe/+z3tcDCQbtL4tNBPk3VoEMAYDMSHozqcO7/dNk33t0WcXrP46SN+sQgKhTeOM+RNDMUQEZdeG3RN+7fPbW23w8EgbNQDFxFchYQjt3YPl/evIjEE3Ts4sMHG6FPJ7eOdpc6EaAJ+5ohfLIJC4cGxKvRzeROfjfyAdVWIUZ1PHR4d/vTO5oZal6zruqXUfqUvE0QM84RZS1Wpx0ox6/4b8+6lXFBs+cgL7592GSkUCm8WC9ZAL4+SHQHRrH0pWfvfVlUghOhd1yArPr2l4ToERUSZTBofDYfhypUr3zk6OvpZEaGqKjfr3JKVVOBC4S2IJcOsc8BjVA4ODn/2tdde+87mcBS6ZuxRlajLFroen1MYXWpI1qVbu9eDu3/a3T8ZQxVUtbNThF6mm5cOQoXCm0gnosG67udS6j59uHcQPFlyd1TDsR4ecmtvd/bA3GfNP1xgONqUSep8d39va7i99Suq4aNdm7qmayPkBKEouYHQ7LDetx4qyUOFwgPg5Gm3hkBAOlGP6vzmtauv/cRjlx7Z34i1HI3HLm6YpWONfpfsga5tmUwmDAYDmqal7RqvQ6Wbm1v7ewf7f/WwHb/sblFFElGRoCVLsFB4C+AppaZp4uF4/PJRM/mrm1tb+1WstEmdT2V6MpnQNs3SfidaAKoBs0SbEhorBhubYTeNE/AnQsdnzWzYRcnvdkW9WACFwhvDcQtAwNQRERl3kn6y69LnLm5shcODvWRtx6geEFRIqTtmAQiLgur0rYMVdwMVLt+4wWhriwld6IwkrX/c3T+VFDPBgaBO30H4eAhwFpQ4RSGo31vYsDgiC+tF39+/l6eAJAUJhoroJzrpfrFLKWwOB6k5POLxc+f77L1eElfE5UzpC6rQdVSJFDuPLvxiUn4GUHUIhs2dfiUsWCi8EajnIp9egNWEv+FuvyhODEjqmoYQwtnHOenJVfM9OGy0MOzoLGhoo/y8iPz16KKVC5VL0pIAVCi8YQikkCNuQZyfceGTJoTK6GqXO47EnSy1C/OEaWgvZI2DOEmcqM4/VOcTojrRrGqSeW4ftkrJGygU7h8CSZ2gziQYH1fn54EIpGBQmxDthGa+J4jf0iIgx/wByYmdI+q05HnHsINKtQMiyqeBl4D/TeEdAWlBoqDiAu52TOiLEigUXjfepdRtDkdVVHm1O2r+kpj/qopEoFscqI1eAUw3OFEBnGwBuM921IUWQwCVQd1BMDrvUugmzedS131MVX+rjlUVQ0x9H4GZR6BYAIXCPWNA2t7YqFJKXzo6Gv+4u/9qEAnB6SqDyuY+OO2VAcayEljhribuveMh9x112ByN0vntrZDa5lu3bt34U21KP2dqMZEkqSUCuMrMY1lWEyoU7pRF0bREts+jwc/vHez/yTalb402BmEwqJK6Ec0IfS+ApH1NgJ/tlF8OAy7Sa4y9m7eo6hqX/jIAk1xz1KQWCVDXtZpAh1sn+p9M2uZ/QOUdGkLCla5pgpsTq5izDHtLIIcPQ3/MeWjjbhYiKVZF4a3MovW8eH8vOulOzplRwJJgOAQTLgN/U1L36XOjTQU42Nu3yoxBiMRe1tswPW9+4tz2uXzuUyJ0ZyqAqXf/xN0FbuzvUQ0HJFzGqdMkmjqxJ9uU/k5d159QhG7SdO6uUVWFeWhCAekDGW2YfxHizD7QWZmGRQEU3qrIdD4uMO2yDRAsb0pffbNwj/ercVkysxhiDJo4aI8+bVF/dlSNXtpEQ0xmzWTi6rCzvZmn6v3+83UAVmyI6fFXrvHMKcBt23w4DKqarmlpmsYPDw7S4eFBuBiGr9R1/dNm/pOCfGlnsBHPDTclSug8mU2XLpg5LZiP+tY3NSwpxoW3O9P7eNqoc1GOpvc/LEytHeP/b+9aWuQqovB3zqm6tx+3Q0gYFJJoDATBlbgTxKUi4h9Q0K0bycZ/4Q+Q4EIE/4FuxJ3gwo0Ibgw4KBonDsOYzPTjPrrqHBd1u6enJ20LY2QW94Omuzd1617u99Wp8yq1wMRU9DMnjn4IhDeyPH/7ii/2Hv21L2whhqo0UU0e/HOuf5stgOVd/LNGjKdjRChUGJEY8IKMPP/+8E9y3keao9fz2buj4fDDGONtVTIzNaT0RRFlUgICp8/ioS3MpG3bgc4C6HBRoY8hvqTkOfhFYh6pIR3EwwBo0M+pCborzB/dP3jwWW/nUtVMS7k5umJWNzqPqaGHEIMMGBTD5B3Y4uTbZAGcWwCOJ0cw5iVxIzECFBGG3GfiyVsMQVW1gOo7MH4fwIvtlInJBTWlmA4jocVDW05wiwh0AtDhoiLx4fTevxUAa7P4jExXQ/E/qurHITafF8NivHv/N3765nXSMI+XqojMCIEA8Ena3bAYnr7ohlTfTe296bwtvI4nRyA6qQpUA4IpxHuIEzhypKpsaqpmRkq5mb1upu8p8JqKK3zOqKoAl7s4npaWZZ6DKQEgbhsYbBKBTgA6XCQ475e/DWn9LDUY1IwN6tLyJn2foZyVoCZMB738ayfy6d6Dva92dnZq74W886xm2swbY9OlzyCuve+j0YoAPCbcd3bFP/P/vxGA9UuuHEoIYgITkYiwGakFNTNDw3arEn5TPL81L5uXez4rcgfMFZirYVZVJsJRAUiKHxKdfKfhOwHocHHQnqqbqKgEWOYkxkiXnUeNxI7jcjrx/d53zvClHY2/uDwodgGgnzkKZhxjVFVNxI/p/V5YErRWzTf6lxbAAk9MAJajnNkytOXBbaMRGEOIhIisJNWHFMHeQ2fVjT67Vz34FSJ6aa7hBfG+gJzeEjRNODV6JwAdLhLy/MQCUAB1CAghTvq5/4mJv4/AN4+a6beUZb96AEUd8VTe4ypGapo6ro7FBriWsqsCsMqw4XBNANbwvwvAIqy3PoVliA8CasWg9kQHmAuJjzYrbUgOqAM+uXuXP7hz51pj4XkTua2EWwCeA3DNTK8CuAqgByA3s+0lTx06PDlEADWACsAhER0C2AfwC4B77NzP1ay8d3iw/8f1Z5/RygIaAYCMapvKDRrEeDyxPPdQs1SzD4AoEd1ZchEoJwJRu+AtIgiDdQtgDdsE4G/WmM/krKT7aAAAAABJRU5ErkJggg=="
+                extension:
+                  type: string
+                  example: "jpg"
+                  description: "Extensión del archivo"
+                filename:
+                  type: string
+                  example: "PROV-2024-183_3028769.jpg"
+                  description: "Nombre del archivo"
+                fecha_creacion:
+                  type: string
+                  example: "12-07-2024 09:35 am"
+                  description: "Fecha de creación del archivo"
+      "404":
+        description: "Archivo no encontrado o inactivo"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "No se encontró el documento"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/eliminar-archivo/{id}:
+  patch:
+    description: "Elimina (desactiva) un archivo de una franquicia"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: "ID del archivo"
+    responses:
+      "200":
+        description: "Archivo eliminado (desactivado) correctamente"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Archivo eliminado exitosamente"
+      "404":
+        description: "Archivo no encontrado o inactivo"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "No se encontró el documento"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/actualizar-fechas/{id}:
+  put:
+    description: "Permite actualizar fecha de reporte o fecha de entrega"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: "ID de la franquicia"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              fecha_despacho:
+                type: string
+                format: date
+              fecha_entrega:
+                type: string
+                format: date
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/franquicias/institucion/verificar-expiracion/{id}:
+  get:
+    description: "Verifica si la institucion ha expirado"
+    tags:
+      - Franquicias
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: "ID de la institucion"
+    responses:
+      "200":
+        description: "Institucion expirada"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "¡Personería jurídica expirada!"
+                expired_date:
+                  type: string
+                  example: "2024-07-16"
+                  description: "Fecha de expiración de la institución"
+      "404":
+        description: "Institución no encontrada"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "No se encontró la institución"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Error interno del servidor"

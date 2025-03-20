@@ -1,0 +1,41 @@
+/api/v1/login:
+  post:
+    tags:
+      - Auth
+    summary: Inicio de sesión
+    description: Inicio de sesión
+    operationId: login
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+    responses:
+      "200":
+        description: Token
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                refresh_token:
+                  type: string
+      "401":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Error las credenciales no son validas
+      "500":
+        description: Error en el servidor

@@ -1,0 +1,147 @@
+/api/v1/catalogos/aduanas/:
+  get:
+    tags:
+      - Aduanas
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: per_page
+        description: Cantidad de resultados por página
+        default: 10
+      - in: query
+        name: page
+        description: Número de página
+        default: 1
+    responses:
+      "200":
+        description: Lista de Aduanas
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nombre:
+                    type: string
+                  creador:
+                    type: string
+                  editor:
+                    type: string
+                  fecha_creacion:
+                    type: string
+                    format: date-time
+                  fecha_edicion:
+                    type: string
+                    format: date-time
+                  activo:
+                    type: boolean
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+/api/v1/catalogos/aduanas/crear:
+  post:
+    tags:
+      - Aduanas
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              nombre:
+                type: string
+    responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    "500":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+/api/v1/catalogos/aduanas/actualizar/{id}:
+  put:
+    tags:
+      - Aduanas
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: id de la aduana
+        required: true
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              nombre:
+                type: string
+    responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    "500":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+/api/v1/catalogos/aduanas/cambiar-estado/{id}:
+  patch:
+    tags:
+      - Aduanas
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: id de la aduana
+        required: true
+    responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    "500":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+

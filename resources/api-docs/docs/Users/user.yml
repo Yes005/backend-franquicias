@@ -1,0 +1,301 @@
+/api/v1/usuarios/:
+  get:
+    description: Retorna la lista de usuarios.
+    tags:
+      - Usuarios
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: per_page
+        description: Cantidad de resultados por página
+        default: 10
+      - in: query
+        name: page
+        description: Número de página
+        default: 1
+      - in: query
+        name: valor
+        description: Valor a buscar
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  last_name:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  activo:
+                    type: boolean
+                  distrito:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nombre:
+                        type: string
+                  municipio:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nombre:
+                        type: string
+                  departamento:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nombre:
+                        type: string
+                  fecha_creacion:
+                    type: string
+                  cod_colaborador:
+                    type: string
+                  titulo:
+                    type: string
+                  cargo:
+                    type: string
+                  firmador:
+                    type: boolean
+                  roles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        rol_id:
+                          type: integer
+                        nombre:
+                          type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/usuarios/crear:
+  post:
+    tags:
+      - Usuarios
+    security:
+      - bearerAuth: []
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              last_name:
+                type: string
+              email:
+                type: string
+                format: email
+              cod_colaborador:
+                type: string
+              cargo:
+                type: string
+              titulo:
+                type: string
+              id_distrito:
+                type: integer
+              roles:
+                type: array
+                items:
+                  type: integer
+              firmador:
+                type: boolean
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/usuarios/actualizar/{id}:
+  put:
+    tags:
+      - Usuarios
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              last_name:
+                type: string
+              email:
+                type: string
+                format: email
+              cod_colaborador:
+                type: string
+              cargo:
+                type: string
+              titulo:
+                type: string
+              id_distrito:
+                type: integer
+              roles:
+                type: array
+                items:
+                  type: integer
+              firmador:
+                type: boolean
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/usuarios/recuperar-password:
+  post:
+    tags:
+      - Usuarios
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+                example: 'jefe@innovacion.com'
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'Contraseña restablecida con éxito'
+      '401':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'El campo correo electrónico es obligatorio.'
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/usuarios/cambiar-estado/{id}:
+  patch:
+    tags:
+      - Usuarios
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/usuarios/desbloquear-usuario/{id}:
+  put:
+    tags:
+      - Usuarios
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+    responses:
+      "200":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'Usuario desbloqueado con éxito'
+      "404":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'No se encontró el usuario'
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string

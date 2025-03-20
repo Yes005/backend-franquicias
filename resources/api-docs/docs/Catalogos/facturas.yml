@@ -1,0 +1,153 @@
+/api/v1/catalogos/facturas/:
+  get:
+    tags:
+      - Facturas
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: per_page
+        description: Cantidad de resultados por página
+        default: 10
+      - in: query
+        name: page
+        description: Número de página
+        default: 1
+    responses:
+      "200":
+        description: Lista de facturas
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nombre:
+                    type: string
+                  creador:
+                    type: string
+                  editor:
+                    type: string
+                  fecha_creacion:
+                    type: string
+                    format: date-time
+                  fecha_edicion:
+                    type: string
+                    format: date-time
+                  activo:
+                    type: boolean
+                  mostrar_no_factura:
+                    type: boolean
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+/api/v1/catalogos/facturas/crear:
+  post:
+    tags:
+      - Facturas
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              nombre:
+                type: string
+              mostrar_no_factura:
+                type: boolean
+    responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    "500":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+/api/v1/catalogos/facturas/actualizar/{id}:
+  put:
+    tags:
+      - Facturas
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: id de la factura
+        required: true
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              nombre:
+                type: string
+              mostrar_no_factura:
+                type: boolean
+    responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    "500":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+/api/v1/catalogos/facturas/cambiar-estado/{id}:
+  patch:
+    tags:
+      - Facturas
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: id de la factura
+        required: true
+    responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    "500":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+

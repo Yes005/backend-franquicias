@@ -1,0 +1,143 @@
+/api/v1/catalogos/firmante/:
+  get:
+    tags:
+      - Firmantes
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: per_page
+        description: Cantidad de resultados por página
+        default: 10
+      - in: query
+        name: page
+        description: Número de página
+        default: 1
+      - in: query
+        name: search
+        description: Búsqueda
+        default: 1
+    responses:
+      "200":
+        description: Lista de firmantes
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  firma:
+                    type: string
+                  cargo:
+                    type: string
+                  acuerdo_ejecutivo:
+                    type: string
+                  fecha_inicio_validez:
+                    type: string
+                    format: date-time
+                  fecha_fin_validez:
+                    type: string
+                    format: date-time
+      "500":
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+/api/v1/catalogos/firmante/crear:
+  post:
+    tags:
+      - Firmantes
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              firma:
+                type: string
+              cargo:
+                type: string
+              acuerdo_ejecutivo:
+                type: string
+              fecha_inicio_validez:
+                type: string
+                format: date
+              fecha_fin_validez:
+                type: string
+                format: date
+    responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    "500":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+/api/v1/catalogos/firmante/actualizar/{id}:
+  put:
+    tags:
+      - Firmantes
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: id del firmante
+        required: true
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              firma:
+                type: string
+              cargo:
+                type: string
+              acuerdo_ejecutivo:
+                type: string
+              fecha_inicio_validez:
+                type: string
+                format: date
+              fecha_fin_validez:
+                type: string
+                format: date
+    responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    "500":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
