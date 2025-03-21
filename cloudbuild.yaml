@@ -24,7 +24,7 @@ steps:
       - 'deployment/franquicias-backend'
       - 'franquicias-backend=us-central1-docker.pkg.dev/$PROJECT_ID/devops-repository/franquicias-image:$SHORT_SHA'
     env:
-      - 'CLOUDSDK_COMPUTE_ZONE=us-central1'
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
       - 'CLOUDSDK_CONTAINER_CLUSTER=franquicias'
 
 timeout: 900s
