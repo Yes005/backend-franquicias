@@ -22,14 +22,14 @@ COPY composer.json composer.lock /var/www/html/
 # Establecer el directorio de trabajo
 WORKDIR /var/www/html
 
-# Instalar dependencias de Composer
-RUN composer install
-
 # Copiar el resto del contenido de la aplicación al contenedor
 COPY . /var/www/html
 
 # Dar permisos de ejecución al archivo artisan
 RUN chmod +x artisan
+
+# Instalar dependencias de Composer
+RUN composer install --no-interaction --no-dev
 
 # Exponer el puerto 8000 (puerto predeterminado de `php artisan serve`)
 EXPOSE 8000
