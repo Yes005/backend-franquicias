@@ -22,7 +22,7 @@ steps:
       - 'set'
       - 'image'
       - 'deployment/franquicias-backend'
-      - 'franquicias-backend=us-central1-docker.pkg.dev/$PROJECT_ID/devops-repository/franquicias-image:$SHORT_SHA'
+      - 'franquicias-image-sha256-1=us-central1-docker.pkg.dev/$PROJECT_ID/devops-repository/franquicias-image:$SHORT_SHA'
       - '-n'
       - 'franquicias'
     env:
