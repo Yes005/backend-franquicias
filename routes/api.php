@@ -35,3 +35,9 @@ Route::get('prueba-v1', function () {
     $users = \App\Models\User::all();
     return response()->json($users);
 });
+
+Route::get('prueba-v2', function () {
+    return response()->json([
+        'message' => 'Hello World'
+    ]);
+});
